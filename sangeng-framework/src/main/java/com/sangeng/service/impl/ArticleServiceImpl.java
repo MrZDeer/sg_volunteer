@@ -159,8 +159,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         //转换成VO
         List<Article> articles = page.getRecords();
 
-        //这里偷懒没写VO的转换 应该转换完在设置到最后的pageVo中
-
         PageVo pageVo = new PageVo();
         pageVo.setTotal(page.getTotal());
         pageVo.setRows(articles);
