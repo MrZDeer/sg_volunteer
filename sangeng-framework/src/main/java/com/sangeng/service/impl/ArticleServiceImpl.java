@@ -207,4 +207,20 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 //        articleUserService.saveBatch(articleUsers);
 
     }
+
+    @Override
+    public ResponseResult addVolunteer(ArticleUser articleUser) {
+        articleUserService.saveOrUpdate(articleUser);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult getArticleUser(Long articleId) {
+        List<ArticleUser> ids = new ArrayList<>();
+        ArticleUser articleUser = new ArticleUser();
+        articleUser.setArticleId(articleId);
+        ids.add(articleUser);
+        List<ArticleUser> articleUsers = articleUserService.listByIds(ids);
+        return ResponseResult.okResult(articleUsers);
+    }
 }

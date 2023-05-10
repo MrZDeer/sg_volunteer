@@ -36,7 +36,7 @@
 			</el-col>
 		</el-row>
 	</div>
-	<div class="headImgBox" :style="{backgroundImage:this.$store.state.themeObj.top_image?'url('+this.$store.state.themeObj.top_image+')':'url(static/img/headbg05.jpg)'}">
+	<div class="headImgBox" :style="{backgroundImage:this.$store.state.themeObj.top_image?'url('+this.$store.state.themeObj.top_image+')':'url(static/img/headbg01.jpg)'}">
 		<div class="scene">
 			<div><span id="luke"></span></div>
 		</div>
@@ -46,7 +46,7 @@
 
 			<h2 class="h-description">
 
-                        {{this.$store.state.themeObj.autograph?this.$store.state.themeObj.autograph:"三更灯火五更鸡，正是男儿读书时"}}
+                        {{this.$store.state.themeObj.autograph?this.$store.state.themeObj.autograph:"志愿者申报与管理系统"}}
 
                 </h2>
 		</div>
@@ -71,7 +71,7 @@ export default {
 			pMenu: true, //手机端菜单打开
 			// path:'',//当前打开页面的路径
 			input: '', //input输入内容
-			headBg: 'url(static/img/headbg05.jpg)', //头部背景图
+			headBg: 'url(static/img/headbg01.jpg)', //头部背景图
 			headTou: '', //头像
 			projectList: '' //项目列表
 		}
@@ -238,6 +238,7 @@ export default {
 .headBox .el-menu {
 	background: transparent;
 	border-bottom: none!important;
+
 }
 
 .headBox .el-menu-demo li.el-menu-item,
@@ -586,7 +587,7 @@ export default {
 	color: #fff;
 	position: absolute;
 	left: 0;
-	top: 160px;
+	top: 330px;
 	font-family: 'Sigmar One', Arial;
 	text-shadow: 0 2px 2px #47456d;
 

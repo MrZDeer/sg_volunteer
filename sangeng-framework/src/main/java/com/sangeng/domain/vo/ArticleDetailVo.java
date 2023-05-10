@@ -28,6 +28,13 @@ public class ArticleDetailVo {
     //访问量
     private Long viewCount;
 
+    private Long needNumber;
+
+    private Date startTime;
+
+    private Date endTime;
+
     private Date createTime;
+
 
 }

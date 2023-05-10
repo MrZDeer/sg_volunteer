@@ -5,10 +5,13 @@ const initDate = (oldDate,full) => {
     var year =  odate.getFullYear();
     var month = odate.getMonth()<9? '0' + (odate.getMonth()+1) : odate.getMonth()+1;
     var date = odate.getDate()<10? '0'+odate.getDate() : odate.getDate();
+    var hour = odate.getHours()<10? '0'+odate.getHours() : odate.getHours();
+    var min = odate.getMinutes()<10? '0'+odate.getMinutes() : odate.getMinutes();
     if(full=='all'){
         var t = oldDate.split(" ")[0];
         // console.log(oldDate,t.split('-')[0],t.split('-')[1],t.split('-')[2]);
-        return t.split('-')[0]+'年'+t.split('-')[1]+'月'+t.split('-')[2]+'日';
+        var h = oldDate.split(" ")[1];
+        return t.split('-')[0]+'年'+t.split('-')[1]+'月'+t.split('-')[2]+'日' + h.split(':')[0] +":"+h.split(':')[1];
     }else if(full=='year'){
         return year
     }else if(full== 'month'){

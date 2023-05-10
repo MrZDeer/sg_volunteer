@@ -16,7 +16,7 @@
         </h1>
       </div>
       <div class="r1-body">
-        <p>三更</p>
+        <p>志愿者</p>
         <div class="catch-me">
           <div class="">
             <el-tooltip class="item" content="Github" placement="top">
@@ -64,7 +64,7 @@
       </div>
     </section>
     <section class="rs4">
-      <h2 class="ui label">热门文章</h2>
+      <h2 class="ui label">热门志愿活动</h2>
       <ul>
         <li v-for="(item, index) in browseList" :key="'browseList' + index">
           <a :href="'#/DetailArticle?aid=' + item.id" target="_blank">{{

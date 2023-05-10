@@ -33,6 +33,25 @@ export function getArticle(articleId) {
         method: 'get'
     })
 }
+export function getArticleUser(articleId) {
+  return request({
+    url: '/article/articleUser/' + articleId,
+    headers: {
+      isToken: false
+    },
+    method: 'get'
+  })
+}
+export function addArticleUser(articleId,userId) {
+  return request({
+    url: '/article/addVolunteer',
+    headers: {
+      isToken: false
+    },
+    method: 'post',
+    data: {'articleId':articleId,'userId':userId}
+  })
+}
 
 export function updateViewCount(articleId) {
     return request({
@@ -42,5 +61,5 @@ export function updateViewCount(articleId) {
         },
         method: 'put'
     })
-    
+
 }

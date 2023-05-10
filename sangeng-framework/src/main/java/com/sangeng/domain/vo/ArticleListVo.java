@@ -21,11 +21,18 @@ public class ArticleListVo {
     //缩略图
     private String thumbnail;
 
-
     //访问量
     private Long viewCount;
 
+    private Long needNumber;
+
+    private Date startTime;
+
+    private Date endTime;
+
     private Date createTime;
+
+
 
 
 }

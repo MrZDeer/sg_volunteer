@@ -47,6 +47,12 @@ public class Article  {
     //是否允许评论 1是，0否
     private String isComment;
 
+    private Long needNumber;
+
+    private Date startTime;
+
+    private Date endTime;
+
     @TableField(fill = FieldFill.INSERT)
     private Long createBy;
     @TableField(fill = FieldFill.INSERT)

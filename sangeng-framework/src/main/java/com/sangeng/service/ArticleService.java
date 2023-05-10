@@ -5,6 +5,7 @@ import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.dto.AddArticleDto;
 import com.sangeng.domain.dto.ArticleDto;
 import com.sangeng.domain.entity.Article;
+import com.sangeng.domain.entity.ArticleUser;
 import com.sangeng.domain.vo.ArticleVo;
 import com.sangeng.domain.vo.PageVo;
 
@@ -24,4 +25,8 @@ public interface ArticleService extends IService<Article> {
     ArticleVo getInfo(Long id);
 
     void edit(ArticleDto article);
+
+    ResponseResult addVolunteer(ArticleUser articleUser);
+
+    ResponseResult getArticleUser(Long articleId);
 }

@@ -30,10 +30,16 @@
                 <p  style="max-height:300px;overflow:hidden;text-align:center;">
                     <img :src="item.thumbnail" alt="" class="maxW">
                 </p>
+
             </div>
+
             <div class="viewdetail">
+              <i class="fa fa-fw fa-user"></i><span>所需人数：{{item.needNumber}}</span><br/>
+              <i class="fa fa-fw fa-clock-o"></i>
+              <span v-html="showInitDate(item.startTime,'all')">{{showInitDate(item.startTime,'all')}} </span> 至
+              <span v-html="showInitDate(item.endTime,'all')">{{showInitDate(item.endTime,'all')}}</span> 止<br/>
                 <a class="tcolors-bg" :href="'#/DetailArticle?aid='+item.id" target="_blank">
-                    阅读全文>>
+                    查看详情>>
                 </a>
             </div>
 

@@ -12,7 +12,7 @@
                     </a>
                 </h1>
                 <h2>
-                    <i class="fa fa-fw fa-user"></i>发表于 <span >{{detailObj.createTime}}</span> •
+                    <i class="fa fa-fw fa-user"></i>发布于 <span >{{detailObj.createTime}}</span> •
                     <i class="fa fa-fw fa-eye"></i>{{detailObj.viewCount}} 次围观 •
                 </h2>
                 <div class="ui label">
@@ -22,39 +22,60 @@
             <div class="article-content markdown-body" v-html="detailObj.content"></div>
 
             <div class="donate">
+              <el-row class="donate-body" :gutter="50">
+                <el-col  :span="24"  class="donate-item">
+                  <div class="donate-tip">
+                    <h2>
+                      <i class="fa fa-fw fa-user"></i><span>招募人数 {{detailObj.needNumber}}</span><br/>
+                    </h2>
+                  </div>
+                  <div>
+                    <i class="fa fa-fw fa-clock-o"></i>
+                    <span v-html="showInitDate(detailObj.startTime,'all')">{{showInitDate(detailObj.startTime,'all')}} </span> 至
+                    <span v-html="showInitDate(detailObj.endTime,'all')">{{showInitDate(detailObj.endTime,'all')}}</span><br/>
+                  </div>
+                </el-col>
+              </el-row>
                 <div class="donate-word">
-                    <span @click="pdonate=!pdonate">赞赏</span>
+                    <span @click="dialogVisible = true">申请报名</span>
                 </div>
-                <el-row :class="pdonate?'donate-body':'donate-body donate-body-show'" :gutter="30">
-                    <el-col  :span="12"   class="donate-item">
-                        <div class="donate-tip">
-                            <img :src="detailObj.wechat_image?detailObj.wechat_image: 'static/img/wx_pay.png'" :onerror="$store.state.errorImg"/>
-                            <span>微信扫一扫，向我赞赏</span>
-                        </div>
-                    </el-col>
-                    <el-col :span="12"  class="donate-item">
-                        <div class="donate-tip">
-                            <img :src="detailObj.alipay_image?detailObj.alipay_image:'static/img/ali_pay.jpg'" :onerror="$store.state.errorImg"/>
-                            <span>支付宝扫一扫，向我赞赏</span>
-                        </div>
-                    </el-col>
-                </el-row>
+
             </div>
+
+          <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="10%"
+            :before-close="handleClose">
+            <span>确定申请报名？</span>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">取 消</el-button>
+              <el-button type="primary" @click="handleApply">确 定</el-button>
+            </span>
+          </el-dialog>
         </div>
+
 </template>
 
 <script>
 import {initDate} from '../utils/server.js'
-import {getArticle,updateViewCount} from '../api/article.js'
+import {addArticleUser, getArticle, getArticleUser, updateViewCount} from '../api/article.js'
 import { mavonEditor } from 'mavon-editor'
     export default {
         data() { //选项 / 数据
             return {
-                aid:'',//文章ID
-                pdonate:true,//打开赞赏控制,
-                detailObj:{},//返回详情数据
-                haslogin:false,//是否已经登录
-                userId:'',//用户id
+              aid:'',//文章ID
+              pdonate:true,//打开赞赏控制,
+              detailObj:{},//返回详情数据
+              haslogin:false,//是否已经登录
+              userId:'',//用户id
+              dialogVisible:false,
+              formLabelWidth: '120px',
+              form:{
+                name:'',
+                phonenumber:0,
+
+              }
             }
         },
         methods: { //事件处理器
@@ -78,14 +99,21 @@ import { mavonEditor } from 'mavon-editor'
                     that.haslogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     that.userId = that.userInfo.userId;
-                    // console.log(that.userInfo);
                 }else{
                     that.haslogin = false;
                 }
                 //获取详情接口
                 this.getArticleDetail()
                 updateViewCount(that.aid)
-            }
+            },
+          handleApply(){
+              this.dialogVisible = false;
+              let userId = JSON.parse(localStorage.getItem('userInfo')).userId;
+              addArticleUser(this.aid,userId)
+              getArticleUser(this.aid).then((res)=>{
+                  console.log(res)
+              })
+          }
         },
         watch: {
            // 如果路由有变化，会再次执行该方法
@@ -243,18 +271,17 @@ import { mavonEditor } from 'mavon-editor'
     height:34px;
     line-height: 34px;
     color:#fff;
-    background: #e26d6d;
+    background: #40b2ee;
     margin:0 auto;
     border-radius: 4px;
     cursor: pointer;
 }
+
 .donate-body{
-    display: none;
-}
-.donate-body-show{
     display: block;
 }
 .donate-item{
+    margin-top: 50px;
     text-align: right;
 }
 .donate-item:last-child{
@@ -267,7 +294,7 @@ import { mavonEditor } from 'mavon-editor'
 }
 .donate-item div{
     display: inline-block;
-    width: 150px;
+    width: 100%;
     padding: 0 6px;
     box-sizing: border-box;
     text-align: center;
