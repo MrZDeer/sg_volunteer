@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 09/05/2023 22:50:35
+ Date: 11/05/2023 00:32:01
 */
 
 SET NAMES utf8mb4;
@@ -47,14 +47,17 @@ DROP TABLE IF EXISTS `sg_article`;
 CREATE TABLE `sg_article`  (
   `id` bigint(200) NOT NULL AUTO_INCREMENT,
   `title` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '文章内容',
-  `summary` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文章摘要',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '活动内容',
+  `summary` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '活动摘要',
   `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属分类id',
   `thumbnail` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '缩略图',
   `is_top` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '是否置顶（0否，1是）',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '状态（0已发布，1草稿）',
   `view_count` bigint(200) NULL DEFAULT 0 COMMENT '访问量',
   `is_comment` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '是否允许评论 1是，0否',
+  `need_number` int(100) NULL DEFAULT NULL COMMENT '所需人数',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '活动开始时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '活动截止时间',
   `create_by` bigint(20) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_by` bigint(20) NULL DEFAULT NULL,
@@ -66,15 +69,15 @@ CREATE TABLE `sg_article`  (
 -- ----------------------------
 -- Records of sg_article
 -- ----------------------------
-INSERT INTO `sg_article` VALUES (1, '测试标题', '::: hljs-center\n\n# 测试\n\n:::\n\n中国新时代志愿服务的发展，从“活动”向“项目”的延伸成为新趋势，开展各种志愿服务项目申报、项目比赛、项目创投、项目资助等等，也成为许多地区探索运作的新机制。为此，包括全国志愿服务项目评审、省市志愿服务项目评审以及各部门、各机构、各组织的志愿服务项目评选，都从填写志愿服务《项目书》开始，逐渐进入初评、复评、展示、答辩阶段。《项目书》填写是否体现志愿服务组织的发展特色、项目的实施水平、服务创新发展的活力等将直接影响到项目是否能进入复评、展示。因此，看似简单的志愿服务《项目书》如何能做到“方寸之间、尽显精彩”就非常重要。必须在扎实做好志愿服务的基础上，认真填写《项目书》，争取更多的领导、专家认可，更多的部门、机构支持，以获得更多更好的项目发展机会。我因为近20年来多次参加国家、省、市乃至县区、镇街的志愿项目大赛评审、公益创投评审、文明实践项目评审、社会治理项目评选等，接触许多《项目书》，既看到有非常优秀的项目介绍，也看到一些做得非常实在的项目缺乏很好的介绍。为此，我结合历年来接触和了解的志愿服务组织在《项目书》填写方面的经验教训，概括出“十个要素”的关键，专门撰写文章分析，提供志愿者和志愿组织参考借鉴。当然，更重要是能按规范做实做好服务项目。\n\n## 题目确定要鲜明\n\n　　志愿服务《项目书》的第一个关键就是“题目”，如何将实实在在、长期坚持开展的服务活动，整理和提炼出引起关注、获得支持的题目，确实需要一定的水平。目前，我发现志愿服务“题目”中主要存在三个方面的问题，即简单地“将想法当作题目、将做法当作题目、将口号当作题目”。 如“关爱留守儿童”的题目，就是将想法当作题目，因为全国都在开展关爱留守儿童的服务，志愿者有这种想法的非常多，不能仅仅简单表达就作为题目。如“牵手留守儿童”仅仅是做法，未能成为鲜明突出的好题目。又如“关爱儿童，一起行动”就只是口号，作为题目显得大同小异、印象不深。\n\n', '测试摘要', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/31/948597e164614902ab1662ba8452e106.png', '1', '1', 105, '0', NULL, '2022-01-23 23:20:11', 1, '2023-04-15 08:23:52', 0);
-INSERT INTO `sg_article` VALUES (2, 'weq', 'adadaeqe', 'adad', 2, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/fd2e9460c58a4af3bbeae5d9ed581688.png', '1', '0', 22, '0', NULL, '2022-01-21 14:58:30', NULL, NULL, 1);
-INSERT INTO `sg_article` VALUES (3, 'dad', 'asdasda', 'sadad', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/737a0ed0b8ea430d8700a12e76aa1cd1.png', '1', '0', 33, '0', NULL, '2022-01-18 14:58:34', NULL, NULL, 1);
-INSERT INTO `sg_article` VALUES (5, 'sdad', '![Snipaste_20220115_165812.png](https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/1d9d283f5d874b468078b183e4b98b71.png)\r\n\r\n## sda \r\n\r\n222\r\n### sdasd newnewnew', NULL, 2, '', '1', '0', 44, '0', NULL, '2022-01-17 14:58:37', 1, '2023-04-15 04:55:09', 0);
-INSERT INTO `sg_article` VALUES (6, 'test', '', '123', 1, '', '1', '1', 0, '0', 1, '2023-04-11 15:04:23', 1, '2023-04-11 15:04:23', 1);
-INSERT INTO `sg_article` VALUES (7, 'wewrq', 'wer', 'rewr', 1, '', '1', '1', 0, '0', 1, '2023-04-12 14:07:46', NULL, '2023-04-12 14:08:13', 0);
-INSERT INTO `sg_article` VALUES (8, 'test', '', 'test', 1, '', '1', '1', 0, '0', 1, '2023-04-14 15:31:01', 1, '2023-04-14 15:31:01', 0);
-INSERT INTO `sg_article` VALUES (9, 'test1', '', 'test1', 2, '', '1', '0', 0, '0', 1, '2023-04-15 03:31:01', 1, '2023-04-15 03:31:01', 0);
-INSERT INTO `sg_article` VALUES (10, 'test2', '### dfsdf \n\nsdfsdf ', 'test2', 2, '', '1', '1', 0, '0', 1, '2023-04-15 04:10:38', 1, '2023-04-15 04:10:49', 1);
+INSERT INTO `sg_article` VALUES (1, '测试标题', '::: hljs-center\n\n# 测试\n\n:::\n\n中国新时代志愿服务的发展，从“活动”向“项目”的延伸成为新趋势，开展各种志愿服务项目申报、项目比赛、项目创投、项目资助等等，也成为许多地区探索运作的新机制。为此，包括全国志愿服务项目评审、省市志愿服务项目评审以及各部门、各机构、各组织的志愿服务项目评选，都从填写志愿服务《项目书》开始，逐渐进入初评、复评、展示、答辩阶段。《项目书》填写是否体现志愿服务组织的发展特色、项目的实施水平、服务创新发展的活力等将直接影响到项目是否能进入复评、展示。因此，看似简单的志愿服务《项目书》如何能做到“方寸之间、尽显精彩”就非常重要。必须在扎实做好志愿服务的基础上，认真填写《项目书》，争取更多的领导、专家认可，更多的部门、机构支持，以获得更多更好的项目发展机会。我因为近20年来多次参加国家、省、市乃至县区、镇街的志愿项目大赛评审、公益创投评审、文明实践项目评审、社会治理项目评选等，接触许多《项目书》，既看到有非常优秀的项目介绍，也看到一些做得非常实在的项目缺乏很好的介绍。为此，我结合历年来接触和了解的志愿服务组织在《项目书》填写方面的经验教训，概括出“十个要素”的关键，专门撰写文章分析，提供志愿者和志愿组织参考借鉴。当然，更重要是能按规范做实做好服务项目。\n\n## 题目确定要鲜明\n\n　　志愿服务《项目书》的第一个关键就是“题目”，如何将实实在在、长期坚持开展的服务活动，整理和提炼出引起关注、获得支持的题目，确实需要一定的水平。目前，我发现志愿服务“题目”中主要存在三个方面的问题，即简单地“将想法当作题目、将做法当作题目、将口号当作题目”。 如“关爱留守儿童”的题目，就是将想法当作题目，因为全国都在开展关爱留守儿童的服务，志愿者有这种想法的非常多，不能仅仅简单表达就作为题目。如“牵手留守儿童”仅仅是做法，未能成为鲜明突出的好题目。又如“关爱儿童，一起行动”就只是口号，作为题目显得大同小异、印象不深。\n\n', '测试摘要', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/31/948597e164614902ab1662ba8452e106.png', '1', '0', 105, '0', 30, '2023-05-10 23:09:27', '2023-05-18 23:09:56', 1, '2022-01-23 23:20:11', 1, '2023-04-15 08:23:52', 0);
+INSERT INTO `sg_article` VALUES (2, 'weq', 'adadaeqe', 'adad', 2, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/fd2e9460c58a4af3bbeae5d9ed581688.png', '1', '0', 22, '0', 40, '2023-05-11 23:09:29', '2023-05-18 23:09:56', 1, '2022-01-21 14:58:30', 1, '2023-05-10 23:10:35', 1);
+INSERT INTO `sg_article` VALUES (3, 'dad', 'asdasda', 'sadad', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/737a0ed0b8ea430d8700a12e76aa1cd1.png', '1', '0', 33, '0', 20, '2023-05-10 23:09:34', '2023-05-18 23:09:56', 1, '2022-01-18 14:58:34', 1, '2023-05-10 23:10:37', 1);
+INSERT INTO `sg_article` VALUES (5, 'sdad', '![Snipaste_20220115_165812.png](https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/1d9d283f5d874b468078b183e4b98b71.png)\r\n\r\n## sda \r\n\r\n222\r\n### sdasd newnewnew', NULL, 2, '', '1', '0', 44, '0', 50, '2023-05-10 23:09:38', '2023-05-18 23:09:56', 1, '2022-01-17 14:58:37', 1, '2023-04-15 04:55:09', 0);
+INSERT INTO `sg_article` VALUES (6, 'test', '', '123', 1, '', '1', '1', 0, '0', 20, '2023-05-10 23:09:41', '2023-05-18 23:09:56', 1, '2023-04-11 15:04:23', 1, '2023-04-11 15:04:23', 1);
+INSERT INTO `sg_article` VALUES (7, 'wewrq', 'wer', 'rewr', 1, '', '1', '1', 0, '0', 30, '2023-05-10 23:09:44', '2023-05-18 23:09:56', 1, '2023-04-12 14:07:46', 1, '2023-04-12 14:08:13', 0);
+INSERT INTO `sg_article` VALUES (8, 'test', '', 'test', 1, '', '1', '1', 0, '0', 25, '2023-05-10 23:09:48', '2023-05-18 23:09:56', 1, '2023-04-14 15:31:01', 1, '2023-04-14 15:31:01', 0);
+INSERT INTO `sg_article` VALUES (9, 'test1', '', 'test1', 2, '', '1', '0', 0, '0', 35, '2023-05-10 23:09:50', '2023-05-18 23:09:56', 1, '2023-04-15 03:31:01', 1, '2023-04-15 03:31:01', 0);
+INSERT INTO `sg_article` VALUES (10, 'test2', '### dfsdf \n\nsdfsdf ', 'test2', 2, '', '1', '1', 0, '0', 45, '2023-05-10 23:09:53', '2023-05-18 23:09:56', 1, '2023-04-15 04:10:38', 1, '2023-04-15 04:10:49', 1);
 
 -- ----------------------------
 -- Table structure for sg_article_user
@@ -89,6 +92,7 @@ CREATE TABLE `sg_article_user`  (
 -- ----------------------------
 -- Records of sg_article_user
 -- ----------------------------
+INSERT INTO `sg_article_user` VALUES (1, 0);
 INSERT INTO `sg_article_user` VALUES (1, 1);
 INSERT INTO `sg_article_user` VALUES (1, 2);
 INSERT INTO `sg_article_user` VALUES (1, 3);
@@ -99,7 +103,6 @@ INSERT INTO `sg_article_user` VALUES (1, 7);
 INSERT INTO `sg_article_user` VALUES (1, 8);
 INSERT INTO `sg_article_user` VALUES (1, 9);
 INSERT INTO `sg_article_user` VALUES (1, 10);
-INSERT INTO `sg_article_user` VALUES (1, 11);
 
 -- ----------------------------
 -- Table structure for sg_category
