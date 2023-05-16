@@ -34,6 +34,14 @@
                             <span>{{userInfoObj.email}}</span>
                         </li>
                         <li>
+                          <span class="leftTitle">学号</span>
+                          <span>{{userInfoObj.sno}}</span>
+                        </li>
+                        <li>
+                          <span class="leftTitle">手机号</span>
+                          <el-input v-model="userInfoObj.phonenumber" placeholder="手机号"></el-input> <i  class="fa fa-wa fa-asterisk"></i>
+                        </li>
+                        <li>
                             <span class="leftTitle">性别</span>
                             <template>
                               <el-radio class="radio" v-model="userInfoObj.sex" label="0">男</el-radio>
@@ -75,11 +83,19 @@
                             <span>{{userInfoObj.email?userInfoObj.email:"无"}}</span>
                         </li>
                         <li>
+                          <span class="leftTitle">学号</span>
+                          <span>{{userInfoObj.sno?userInfoObj.sno:"无"}}</span>
+                        </li>
+                        <li>
+                          <span class="leftTitle">手机号</span>
+                          <span>{{userInfoObj.phonenumber?userInfoObj.phonenumber:"无"}}</span>
+                        </li>
+                        <li>
                             <span class="leftTitle">性别</span>
                             <span>{{userInfoObj.sex==0?'男':'女'}}</span>
                         </li>
 
-                     
+
                     </ul>
 
                 </section>

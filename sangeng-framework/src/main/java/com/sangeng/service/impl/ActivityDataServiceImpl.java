@@ -64,8 +64,6 @@ public class ActivityDataServiceImpl extends ServiceImpl<ActivityDataMapper, Act
             return data;
         }).collect(Collectors.toList());
 
-        //这里偷懒没写VO的转换 应该转换完在设置到最后的pageVo中
-
         PageVo pageVo = new PageVo();
         pageVo.setTotal(page.getTotal());
         pageVo.setRows(res);

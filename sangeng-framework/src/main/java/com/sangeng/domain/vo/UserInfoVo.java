@@ -25,5 +25,8 @@ public class UserInfoVo {
 
     private String email;
 
+    private Long sno;
+
+    private String phonenumber;
 
 }

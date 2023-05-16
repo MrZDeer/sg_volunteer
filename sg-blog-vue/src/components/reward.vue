@@ -1,170 +1,168 @@
 <!-- 赞赏模块 -->
 <template>
-  <div class="tRewardBox tcommonBox">
-    <header>
-      <h1>
-        <a href="#/DetailShare" target="_blank"> 赞赏 </a>
-      </h1>
-    </header>
-    <section>
-      <div>
-        <img
-          src="static/img/coffee.jpg"
-          alt=""
-          style="max-width: 20%"
-          class="coffee"
-        />
+  <el-row>
+
+    <el-col :span="24" class="s-item tcommonBox" v-for="(item,index) in articleList" :key="'article'+index">
+            <span class="s-round-date">
+                <span class="month" v-html="showInitDate(item.createTime,'month')+'月'"></span>
+                <span class="day" v-html="showInitDate(item.createTime,'date')"></span>
+            </span>
+      <header>
+        <h1>
+          <a :href="'#/DetailArticle?aid='+item.id" target="_blank">
+            {{item.title}}
+          </a>
+        </h1>
+        <h2>
+          <i class="fa fa-fw fa-user"></i>发表于
+          <i class="fa fa-fw fa-clock-o"></i><span v-html="showInitDate(item.createTime,'all')">{{showInitDate(item.createTime,'all')}}</span> •
+          <i class="fa fa-fw fa-eye"></i>{{item.viewCount}} 次围观 •
+
+        </h2>
+        <div class="ui label">
+          <a :href="'#/Share?classId='+item.class_id">{{item.categoryName}}</a>
+        </div>
+      </header>
+      <div class="article-content">
+        <p style="text-indent:2em;">
+          {{item.summary}}
+        </p>
+        <p  style="max-height:300px;overflow:hidden;text-align:center;">
+          <img :src="item.thumbnail" alt="" class="maxW">
+        </p>
+
       </div>
-      <h1>赞赏说明：</h1>
-      <p>
-        如果我的课程对你有所帮助，你可以请作者喝杯咖啡表示鼓励
-        ☕️)请备注留下你的姓名/昵称方便我公布赞赏记录。
-      </p>
-      <hr />
-      <h1>赞赏方式：</h1>
-      <el-row :gutter="30">
-        <el-col :span="12" class="donate-item">
-          <div class="donate-tip">
-            <img
-              :src="
-                rewardData.wechat_image
-                  ? rewardData.wechat_image
-                  : 'static/img/wx_pay.png'
-              "
-              :onerror="$store.state.errorImg"
-            />
-            <span>微信扫一扫，请我喝杯咖啡</span>
-          </div>
-        </el-col>
-        <el-col :span="12" class="donate-item">
-          <div class="donate-tip">
-            <img
-              :src="
-                rewardData.alipay_image
-                  ? rewardData.alipay_image
-                  : 'static/img/ali_pay.jpg'
-              "
-              :onerror="$store.state.errorImg"
-            />
-            <span style="padding-top: 14px">支付宝扫一扫，请我喝杯咖啡</span>
-          </div>
-        </el-col>
-      </el-row>
-      <h1>@赞赏记录：</h1>
-      <el-table :data="tableData" border style="width: 100%">
-        <el-table-column
-          prop="payTime"
-          label="日期"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="name"
-          label="赞赏人"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="money"
-          label="金额"
-          align="center"
-        ></el-table-column>
-      </el-table>
-    </section>
-  </div>
+
+      <div class="viewdetail">
+        <i class="fa fa-fw fa-user"></i><span>所需人数：{{item.needNumber}}</span><br/>
+        <i class="fa fa-fw fa-clock-o"></i>
+        <span v-html="showInitDate(item.startTime,'all')">{{showInitDate(item.startTime,'all')}} </span> 至
+        <span v-html="showInitDate(item.endTime,'all')">{{showInitDate(item.endTime,'all')}}</span> 止<br/>
+        <a class="tcolors-bg" :href="'#/DetailArticle?aid='+item.id" target="_blank">
+          查看详情>>
+        </a>
+      </div>
+
+    </el-col>
+    <el-col class="viewmore">
+      <a v-show="hasMore" class="tcolors-bg" href="javascript:void(0);" @click="addMoreFun">点击加载更多</a>
+      <a v-show="!hasMore" class="tcolors-bg" href="javascript:void(0);">暂无更多数据</a>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
+import {initDate} from '../utils/server.js'
+import {articleList, articleListByUserId} from '../api/article'
+import {getUserInfo} from "../api/user";
 export default {
   data() {
     //选项 / 数据
     return {
-      rewardData: "", //赞赏二维码
-      tableData: [
-        {
-          //赞赏数据
-          "payTime":"2021-10-23",
-          "name":"智障少女欢乐多",
-          "money":"188"
-        },
-        {
-          "payTime":"2021-10-28",
-          "name":"刺猬",
-          "money":"50"
-        },
-        {
-          "payTime":"2021-11-03",
-          "name":"迅捷小鹿",
-          "money":"30"
-        },
-      ],
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        categoryId: 0,
+        userId:''
+      },
+      articleList:[],
+      hasMore:true
     };
   },
   methods: {
-    //事件处理器
-    showInitDate: function (date, full) {
-      //时间处理
-      return initDate(date, full);
+    showInitDate: function(oldDate,full){
+      return initDate(oldDate,full)
     },
+    getList(userId){
+      this.queryParams.userId = userId
+      articleListByUserId(this.queryParams).then((response)=>{
+        this.articleList = this.articleList.concat(response.rows)
+        if(response.total<=this.articleList.length){
+          this.hasMore=false
+        }else{
+          this.hasMore=true
+          this.queryParams.pageNum++
+        }
+      })
+    },
+    showSearchShowList:function(initData){//展示数据
+      if(initData){
+        this.articleList = []
+
+      }
+      this.getList()
+    },
+    addMoreFun:function(){//查看更多
+      this.showSearchShowList(false);
+    },
+    routeChange:function(){
+      var that = this;
+
+      this.queryParams.categoryId = (that.$route.query.classId==undefined?0:parseInt(that.$route.query.classId));//获取传参的classId
+      this.showSearchShowList(true);
+
+    }
   },
   components: {
     //定义组件
   },
-  created() {
-    //生命周期函数
-    var that = this;
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route':'routeChange',
+    '$store.state.keywords':'routeChange'
   },
+  created() { //生命周期函数
+    // console.log(this.$route);
+    var that = this;
+    that.routeChange();
+  }
 };
 </script>
 
 <style>
-.tRewardBox section {
-  padding-bottom: 20px;
+/*分享标题*/
+.shareTitle{
+  margin-bottom: 40px;
+  position: relative;
+  border-radius: 5px;
+  background: #fff;
+  padding:15px;
 }
-.tRewardBox section h1 {
-  margin: 10px 0;
-  font-size: 25px;
-  font-weight: 700;
-  /*text-align: center;*/
-  line-height: 30px;
+.shareclassTwo{
+  width:100%;
 }
-.tRewardBox section p {
-  margin: 10px 0;
-  line-height: 24px;
+.shareclassTwo li{
+  display: inline-block;
 }
-.tRewardBox section hr {
-  background: #ccc;
-  margin-bottom: 30px;
+.shareclassTwo li a{
+  display: inline-block;
+  padding:3px 7px;
+  margin:5px 10px;
+  color:#fff;
+  border-radius: 4px;
+  background: #64609E;
+  border: 1px solid #64609E;
+  transition: transform 0.2s linear;
+  -webkit-transition: transform 0.2s linear;
+}
+.shareclassTwo li a:hover{
+  transform: translate(0,-3px);
+  -webkit-transform: translate(0,-3px);
+}
+.shareclassTwo li a.active{
+  background: #fff;
+  color:#64609E;
+
+}
+/*文章列表*/
+.sharelistBox{
+  transition: all 0.5s ease-out;
+  font-size: 15px;
 }
 
-.tRewardBox .donate-item {
-  text-align: right;
-  color: #44b549;
-}
-.tRewardBox .donate-item:last-child {
-  text-align: left;
-  color: #00a0e9;
-}
-.tRewardBox .donate-item img {
-  width: 100%;
-  display: block;
-  height: auto;
-}
-.tRewardBox .donate-item div {
-  display: inline-block;
-  width: 150px;
-  padding: 0 6px;
-  text-align: center;
-  box-sizing: border-box;
-}
-.tRewardBox .donate-item div span {
-  display: inline-block;
-  width: 100%;
-  margin: 10px 0;
-  text-align: center;
-}
-.tRewardBox .el-table__body-wrapper {
-  overflow: hidden;
-}
-.el-table--enable-row-hover .el-table__body tr:hover > td {
-  background: transparent;
-}
+
+/*.sharelistBox .viewmore a:hover,.s-item .viewdetail a:hover{
+    background: #48456C;
+}*/
 </style>

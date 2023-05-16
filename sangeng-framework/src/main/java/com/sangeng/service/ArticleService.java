@@ -29,4 +29,5 @@ public interface ArticleService extends IService<Article> {
     ResponseResult addVolunteer(ArticleUser articleUser);
 
     ResponseResult getArticleUser(Long articleId);
+
 }

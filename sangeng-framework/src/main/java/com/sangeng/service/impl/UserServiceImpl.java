@@ -68,6 +68,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(!StringUtils.hasText(user.getEmail())){
             throw new SystemException(AppHttpCodeEnum.EMAIL_NOT_NULL);
         }
+        if(!StringUtils.hasText(user.getSno().toString())){
+            throw new SystemException(AppHttpCodeEnum.SNO_NOT_NULL);
+        }
+        if(!StringUtils.hasText(user.getPhonenumber())){
+            throw new SystemException(AppHttpCodeEnum.PHONENUMBER_NOT_NULL);
+        }
+        if(!StringUtils.hasText(user.getEmail())){
+            throw new SystemException(AppHttpCodeEnum.EMAIL_NOT_NULL);
+        }
         if(!StringUtils.hasText(user.getNickName())){
             throw new SystemException(AppHttpCodeEnum.NICKNAME_NOT_NULL);
         }
@@ -77,6 +86,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         if(nickNameExist(user.getNickName())){
             throw new SystemException(AppHttpCodeEnum.NICKNAME_EXIST);
+        }
+        if(snoExist(user.getSno())){
+            throw new SystemException(AppHttpCodeEnum.SNO_EXIST);
+        }
+        if(phonenumberExist(user.getPhonenumber())){
+            throw new SystemException(AppHttpCodeEnum.PHONENUMBER_EXIST);
         }
         //...
         //对密码进行加密
@@ -167,7 +182,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq(User::getNickName,nickName);
         return count(queryWrapper)>0;
     }
-
+    private boolean snoExist(Long sno) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getSno,sno);
+        return count(queryWrapper)>0;
+    }
+    private boolean phonenumberExist(String phoneNumber) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getPhonenumber,phoneNumber);
+        return count(queryWrapper)>0;
+    }
     private boolean userNameExist(String userName) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUserName,userName);

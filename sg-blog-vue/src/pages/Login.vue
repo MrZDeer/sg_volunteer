@@ -3,7 +3,7 @@
     <div>
         <div class="container">
             <h1 class="loginTitle">
-                
+
             </h1>
             <!-- 登录注册 -->
             <div v-show="!err2005" class="">
@@ -71,6 +71,28 @@
                         v-model="nnickName">
                     </el-input>
                     <el-input
+                      type="sno"
+                      placeholder="学号"
+                      v-model="nsno">
+                    </el-input>
+                    <el-alert
+                      v-show="nsnoErr"
+                      title="学号错误"
+                      type="error"
+                      show-icon  :closable="false">
+                    </el-alert>
+                  <el-input
+                    type="phonenumber"
+                    placeholder="手机号"
+                    v-model="nphonenumber">
+                  </el-input>
+                  <el-alert
+                    v-show="nphonenumberErr"
+                    title="手机号错误"
+                    type="error"
+                    show-icon  :closable="false">
+                  </el-alert>
+                    <el-input
                         type="email"
                         placeholder="邮箱"
                         v-model="nemail">
@@ -124,6 +146,8 @@ import {setToken} from '../utils/auth.js'
                 password: '',//密码
                 nusername: '',//新用户注册名
                 nemail: '',//新用户注册邮箱
+                nsno: '',//新用户注册学号
+                nphonenumber: '',//新用户注册手机号
                 npassword: '',//新用户注册密码
                 npassword2: '',//新用户注册重复密码
                 login: 0,//是否已经登录
@@ -131,6 +155,8 @@ import {setToken} from '../utils/auth.js'
                 loginTitle:'用户名或密码错误',
                 nusernameErr:false,//新用户注册用户名错误
                 nemailErr: false,//新用户注册邮箱错误
+                nsnoErr: false,//新用户注册学号错误
+                nphonenumberErr: false,//新用户注册手机号错误
                 npasswordErr: false,//新用户注册密码错误
                 npassword2Err: false,//新用户注册重复密码错误
                 registerErr: false,//已注册错误
@@ -167,7 +193,7 @@ import {setToken} from '../utils/auth.js'
                         this.$router.push({path:'/'});
                     }
                 })
-      
+
             },
             registerEnterFun: function(e){
                 var keyCode = window.event? e.keyCode:e.which;
@@ -180,6 +206,8 @@ import {setToken} from '../utils/auth.js'
                 var that = this;
                 var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ ;
                 var preg = /^(\w){6,12}$/;
+                var phonereg = /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/;
+                var snoreg = /^[0-9]{12}$/;
                 if(that.nusername){
                     that.nusernameErr = false;
                 }else{
@@ -189,6 +217,16 @@ import {setToken} from '../utils/auth.js'
                     that.nemailErr = false;
                 }else{
                     that.nemailErr = true;
+                }
+                if(that.nsno && snoreg.test(that.nsno)){
+                  that.nsnoErr = false;
+                }else{
+                  that.nsnoErr = true;
+                }
+                if(that.nphonenumber && phonereg.test(that.nphonenumber)){
+                  that.nphonenumberErr = false;
+                }else{
+                  that.nphonenumberErr = true;
                 }
                 if(that.npassword&&preg.test(that.npassword)){
                     that.npasswordErr = false;
@@ -200,9 +238,9 @@ import {setToken} from '../utils/auth.js'
                 }else{
                     that.npasswordErr = true;
                 }
-                if(!that.nusernameErr&&!that.nemailErr&&!that.npasswordErr){
+                if(!that.nusernameErr&&!that.nemailErr&&!that.npasswordErr&&!that.nsnoErr&&!that.nphonenumberErr){
                     that.fullscreenLoading = true;
-                    userRegister(that.nusername,that.nnickName,that.nemail,that.npassword).then((response)=>{
+                    userRegister(that.nusername,that.nnickName,that.nemail,that.nsno,that.nphonenumber,that.npassword).then((response)=>{
                          //注册成功后调整到登录
                          that.goLogin()
                     }).catch((error)=>{

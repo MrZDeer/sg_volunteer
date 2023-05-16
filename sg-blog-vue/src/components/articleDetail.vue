@@ -37,7 +37,15 @@
                 </el-col>
               </el-row>
                 <div class="donate-word">
-                    <span @click="dialogVisible = true">申请报名</span>
+                    <span v-show="!checked" @click="dialogVisible = true">申请报名</span>
+                    <span v-show="checked" disabled="true">已报名</span>
+                </div>
+                <div v-show="checked" class="bottom-steps">
+                  <el-steps :space="200" :active="2" finish-status="success">
+                    <el-step title="已完成"></el-step>
+                    <el-step title="审核中"></el-step>
+                    <el-step title="审核通过"></el-step>
+                  </el-steps>
                 </div>
 
             </div>
@@ -59,7 +67,7 @@
 
 <script>
 import {initDate} from '../utils/server.js'
-import {addArticleUser, getArticle, getArticleUser, updateViewCount} from '../api/article.js'
+import {addArticleUser, checkApply,getArticle, getArticleUser, updateViewCount} from '../api/article.js'
 import { mavonEditor } from 'mavon-editor'
     export default {
         data() { //选项 / 数据
@@ -75,7 +83,8 @@ import { mavonEditor } from 'mavon-editor'
                 name:'',
                 phonenumber:0,
 
-              }
+              },
+              checked:false
             }
         },
         methods: { //事件处理器
@@ -90,6 +99,13 @@ import { mavonEditor } from 'mavon-editor'
                     // markdownIt.re
                     this.detailObj.content = markdownIt.render(response.content);
                 })
+                checkApply(this.aid,this.userId).then((response)=>{
+                  if(response.length == 1){
+                    this.checked = true
+                  } else if(response.length == 0){
+                    this.checked = false
+                  }
+                })
             },
             routeChange:function(){
                 var that = this;
@@ -99,6 +115,7 @@ import { mavonEditor } from 'mavon-editor'
                     that.haslogin = true;
                     that.userInfo = JSON.parse(localStorage.getItem('userInfo'));
                     that.userId = that.userInfo.userId;
+                    this.userId = that.userInfo.id;
                 }else{
                     that.haslogin = false;
                 }
@@ -109,6 +126,7 @@ import { mavonEditor } from 'mavon-editor'
           handleApply(){
               this.dialogVisible = false;
               let userId = JSON.parse(localStorage.getItem('userInfo')).userId;
+              this.userId = userId;
               addArticleUser(this.aid,userId)
               getArticleUser(this.aid).then((res)=>{
                   console.log(res)
@@ -123,10 +141,8 @@ import { mavonEditor } from 'mavon-editor'
 
         },
         created() { //生命周期函数
-            var that = this;
-
             this.routeChange();
-        },
+        }
 
     }
 </script>
@@ -258,6 +274,12 @@ import { mavonEditor } from 'mavon-editor'
     border-radius: 35px;
     border: 1px solid #e26d6d;
     cursor: pointer;
+}
+.bottom-steps{
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /*赞赏*/

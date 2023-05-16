@@ -12,6 +12,17 @@ export function articleList(query) {
     })
 }
 
+export function articleListByUserId(query) {
+  return request({
+    url: '/article/articleListByUserId',
+    method: 'get',
+    headers: {
+      isToken: false
+    },
+    params: query
+  })
+}
+
 //查询最热文章
 export function hotArticleList() {
     return request({
@@ -40,6 +51,16 @@ export function getArticleUser(articleId) {
       isToken: false
     },
     method: 'get'
+  })
+}
+export function checkApply(articleId,userId) {
+  return request({
+    url: '/article/checkArticleUser/',
+    headers: {
+      isToken: false
+    },
+    method: 'get',
+    params: {"articleId":articleId,"userId":userId}
   })
 }
 export function addArticleUser(articleId,userId) {

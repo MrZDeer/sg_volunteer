@@ -6,6 +6,7 @@ import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.entity.Article;
 import com.sangeng.domain.entity.ArticleUser;
 import com.sangeng.service.ArticleService;
+import com.sangeng.service.ArticleUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,10 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private ArticleUserService articleUserService;
+
 
     @GetMapping("/hotArticleList")
     public ResponseResult hotArticleList(){
@@ -30,6 +35,14 @@ public class ArticleController {
         return articleService.articleList(pageNum,pageSize,categoryId);
     }
 
+    @GetMapping("/articleListByUserId")
+    public ResponseResult articleListByUserId(Integer pageNum,Integer pageSize,Long userId){
+        return articleUserService.articleListByUserId(pageNum,pageSize,userId);
+    }
+    @GetMapping("/checkArticleUser")
+    public ResponseResult checkArticleUser(Long articleId,Long userId){
+        return articleUserService.articleUserSearch(articleId,userId);
+    }
     @PutMapping("/updateViewCount/{id}")
     public ResponseResult updateViewCount(@PathVariable("id") Long id){
         return articleService.updateViewCount(id);

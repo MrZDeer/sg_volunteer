@@ -12,7 +12,7 @@ export function userLogin(username,password) {
     })
 }
 
-export function userRegister(username,nickName,email,password) {
+export function userRegister(username,nickName,email,sno,sphonenumber,password) {
     return request({
         url: '/user/register',
         method: 'post',
