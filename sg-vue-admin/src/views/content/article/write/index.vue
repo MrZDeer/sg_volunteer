@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
 
-    <el-form ref="form" :model="form" label-width="90px">
+    <el-form :rules="rules" ref="form" :model="form" label-width="90px">
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="活动标题" prop="title">
@@ -9,11 +9,12 @@
               v-model="form.title"
               placeholder="请输入活动标题"
               maxlength="30"
+              required="true"
             />
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="分类">
+          <el-form-item label="分类"  prop="category">
             <el-select v-model="form.categoryId" placeholder="请选择">
               <el-option
                 v-for="category in categoryList"
@@ -25,11 +26,32 @@
             </el-select>
           </el-form-item>
         </el-col>
-
+        <el-col :span="6">
+          <el-form-item label="所需人数" prop="needNumber">
+            <el-input
+              v-model="form.needNumber"
+              placeholder="请输入所需人数"
+              type='number'
+              maxlength="1000"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="开始/结束时间" prop="time">
+            <el-date-picker
+              v-model="rangeDate"
+              type="datetimerange"
+              range-separator="至"
+              value-format="yyyy-MM-dd HH:mm:ss"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item label="活动摘要">
+          <el-form-item label="活动摘要" prop="summary">
             <el-input v-model="form.summary" type="textarea" />
           </el-form-item>
         </el-col>
@@ -139,13 +161,17 @@ export default {
   name: 'Write',
   data() {
     return {
+      rangeDate:[],
       form: {
         title: '',
         thumbnail: '',
         isTop: '1',
         isComment: '0',
         content: '',
-        users:[]
+        users:[],
+        startTime:null,
+        endTime:null,
+        needNumber:null
       },
       categoryList: [],
       userList: [],
@@ -153,7 +179,15 @@ export default {
       fileList: [],
       pageSize:5,
       currentPage:1,
-      activeIndex:false
+      activeIndex:false,
+      rules: {
+        title: [{required: true, message: '请输入标题', trigger: 'blur'}],
+        category: [{required: true, message: '请选择分类', trigger: 'blur'}],
+        needNumber: [{required: true, message: '请输入所需人数', trigger: 'blur'}],
+        time: [{required: true, message: '请选择日期', trigger: 'blur'}],
+        summary: [{required: true, message: '请输入摘要', trigger: 'blur'}]
+      }
+
     }
   },
   watch: {
@@ -162,6 +196,15 @@ export default {
         this.aId = route.query && route.query.id
       },
       immediate: true
+    },
+    rangeDate: function (val, oldVal) {
+      if (val !== null) {
+        this.form.startTime = val[0]
+        this.form.endTime = val[1]
+      } else {
+        this.form.startTime = null
+        this.form.endTime = null
+      }
     }
   },
   created() {
@@ -174,6 +217,9 @@ export default {
   methods: {
     getArticle() {
       getArticle(this.aId).then(response => {
+        console.log(response)
+        this.$set(this.rangeDate,0,new Date(response.startTime));
+        this.$set(this.rangeDate,1,new Date(response.endTime));
         this.form = response
         this.fileList.push({ name: '缩略图', url: response.thumbnail })
       })
@@ -194,13 +240,13 @@ export default {
     handleSubmit() {
       if (!this.aId) {
         this.form.status = '0'
+        console.log(this.form)
         addArticle(this.form).then(response => {
           this.$modal.msgSuccess('发布成功')
           this.$router.push({ path: '/content/article' })
         })
       } else {
         // 更新博客信息
-        console.log(this.form)
         updateArticle(this.form).then(response => {
           this.$modal.msgSuccess('更新成功')
           this.$router.push({ path: '/content/article' })

@@ -22,6 +22,8 @@ import com.sangeng.utils.RedisCache;
 import com.sangeng.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -136,7 +138,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 
         List<ArticleUser> articleUsers = articleDto.getUsers().stream()
-                .map(userId -> new ArticleUser(article.getId(), userId))
+                .map(userId -> {
+                    ArticleUser articleUser = new ArticleUser();
+                    articleUser.setArticleId(article.getId());
+                    articleUser.setUserId(userId);
+                    return articleUser;
+                })
                 .collect(Collectors.toList());
 
         //添加 博客和标签的关联
@@ -210,17 +217,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ResponseResult addVolunteer(ArticleUser articleUser) {
+        articleUser.setCreateTime(new Date());
         articleUserService.saveOrUpdate(articleUser);
         return ResponseResult.okResult();
     }
 
     @Override
     public ResponseResult getArticleUser(Long articleId) {
-        List<ArticleUser> ids = new ArrayList<>();
-        ArticleUser articleUser = new ArticleUser();
-        articleUser.setArticleId(articleId);
-        ids.add(articleUser);
-        List<ArticleUser> articleUsers = articleUserService.listByIds(ids);
+        LambdaQueryWrapper<ArticleUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ArticleUser::getArticleId,articleId);
+        List<ArticleUser> articleUsers = articleUserService.list(queryWrapper);
         return ResponseResult.okResult(articleUsers);
     }
 }

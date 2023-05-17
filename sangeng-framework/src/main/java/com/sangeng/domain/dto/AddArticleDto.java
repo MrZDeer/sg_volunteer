@@ -23,6 +23,9 @@ public class AddArticleDto {
     //所属分类id
     private Long categoryId;
 
+    private Long needNumber;
+    private Date startTime;
+    private Date endTime;
     //缩略图
     private String thumbnail;
     //是否置顶（0否，1是）

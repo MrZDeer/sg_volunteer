@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,9 @@ public class ArticleDto {
     private String summary;
     //所属分类id
     private Long categoryId;
-
+    private Long needNumber;
+    private Date startTime;
+    private Date endTime;
     //缩略图
     private String thumbnail;
     //是否置顶（0否，1是）

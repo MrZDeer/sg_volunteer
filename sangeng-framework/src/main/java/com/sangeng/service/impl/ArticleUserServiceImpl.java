@@ -4,15 +4,19 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sangeng.domain.ResponseResult;
+import com.sangeng.domain.entity.ActivityData;
 import com.sangeng.domain.entity.Article;
 import com.sangeng.domain.entity.ArticleUser;
+import com.sangeng.domain.entity.LoginUser;
 import com.sangeng.domain.vo.ArticleListVo;
 import com.sangeng.domain.vo.PageVo;
 import com.sangeng.mapper.ArticleUserMapper;
 import com.sangeng.service.ArticleService;
 import com.sangeng.service.ArticleUserService;
 import com.sangeng.service.CategoryService;
+import com.sangeng.service.UserService;
 import com.sangeng.utils.BeanCopyUtils;
+import com.sangeng.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +35,9 @@ public class ArticleUserServiceImpl extends ServiceImpl<ArticleUserMapper, Artic
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public ResponseResult articleListByUserId(Integer pageNum, Integer pageSize, Long userId) {
@@ -74,6 +81,37 @@ public class ArticleUserServiceImpl extends ServiceImpl<ArticleUserMapper, Artic
 
 
         return ResponseResult.okResult(list);
+    }
+
+    @Override
+    public PageVo selectArticleUserPage(ArticleUser articleUser, Integer pageNum, Integer pageSize) {
+
+        LambdaQueryWrapper<ArticleUser> queryWrapper = new LambdaQueryWrapper();
+
+        queryWrapper.like(articleUser.getArticleId() != null,
+                ArticleUser::getArticleId, articleUser.getArticleId());
+
+        Page<ArticleUser> page = new Page<>();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+
+
+        //转换成VO
+        List<ArticleUser> articleUsers = page.getRecords();
+
+        List<ArticleUser> res = articleUsers.stream().map(data -> {
+            Article article = articleService.getById(data.getArticleId());
+            data.setTitle(article.getTitle());
+            String userName = userService.getById(data.getUserId()).getUserName();
+            data.setUserName(userName);
+            return data;
+        }).collect(Collectors.toList());
+
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(res);
+        return pageVo;
     }
 
 }

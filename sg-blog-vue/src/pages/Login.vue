@@ -11,7 +11,7 @@
                     <div class="lr-title">
                         <h1>登录</h1>
                         <p>
-                            新用户<a href="#/Login?login=0" class="tcolors">注册</a>
+                            志愿者<a href="#/Login?login=0" class="tcolors">注册</a>
                         </p>
                     </div>
                     <el-alert
@@ -43,7 +43,7 @@
                 </div>
                 <div v-else class="registerBox">
                     <div class="lr-title">
-                        <h1>注册</h1>
+                        <h1>志愿者注册</h1>
                         <p>
                             已有账号<a href="#/Login?login=1" class="tcolors">登录</a>
                         </p>

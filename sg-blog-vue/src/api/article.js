@@ -70,7 +70,7 @@ export function addArticleUser(articleId,userId) {
       isToken: false
     },
     method: 'post',
-    data: {'articleId':articleId,'userId':userId}
+    data: {'articleId':articleId,"userId":userId}
   })
 }
 

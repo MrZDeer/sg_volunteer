@@ -41,11 +41,7 @@
                     <span v-show="checked" disabled="true">已报名</span>
                 </div>
                 <div v-show="checked" class="bottom-steps">
-                  <el-steps :space="200" :active="2" finish-status="success">
-                    <el-step title="已完成"></el-step>
-                    <el-step title="审核中"></el-step>
-                    <el-step title="审核通过"></el-step>
-                  </el-steps>
+                  审核结果：<el-tag :type="checkedType">{{ checkedName }}</el-tag>
                 </div>
 
             </div>
@@ -72,6 +68,7 @@ import { mavonEditor } from 'mavon-editor'
     export default {
         data() { //选项 / 数据
             return {
+              id:null,
               aid:'',//文章ID
               pdonate:true,//打开赞赏控制,
               detailObj:{},//返回详情数据
@@ -84,7 +81,10 @@ import { mavonEditor } from 'mavon-editor'
                 phonenumber:0,
 
               },
-              checked:false
+              checked:false,
+              status:0,
+              checkedName:null,
+              checkedType:null
             }
         },
         methods: { //事件处理器
@@ -100,8 +100,24 @@ import { mavonEditor } from 'mavon-editor'
                     this.detailObj.content = markdownIt.render(response.content);
                 })
                 checkApply(this.aid,this.userId).then((response)=>{
+                    console.log(response)
                   if(response.length == 1){
                     this.checked = true
+                    this.id = response[0].id
+                    this.status = response[0].status
+                    if(response[0].status == 0){
+                      this.checkedName = "待审核"
+                      this.checkedType = "warning"
+                    }else if(response[0].status == 1){
+                      this.checkedName = "通过"
+                      this.checkedType = "success"
+                    }else if(response[0].status == 2){
+                      this.checkedName = "驳回"
+                      this.checkedType = "danger"
+                    }else {
+                      this.checkedName = "系统未知错误"
+                      this.checkedType = "danger"
+                    }
                   } else if(response.length == 0){
                     this.checked = false
                   }
@@ -125,12 +141,9 @@ import { mavonEditor } from 'mavon-editor'
             },
           handleApply(){
               this.dialogVisible = false;
-              let userId = JSON.parse(localStorage.getItem('userInfo')).userId;
-              this.userId = userId;
-              addArticleUser(this.aid,userId)
-              getArticleUser(this.aid).then((res)=>{
-                  console.log(res)
-              })
+              console.log(this.userId)
+              addArticleUser(this.aid,this.userId)
+              this.$router.go(0);
           }
         },
         watch: {
