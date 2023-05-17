@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 11/05/2023 00:32:01
+ Date: 18/05/2023 02:10:33
 */
 
 SET NAMES utf8mb4;
@@ -64,12 +64,12 @@ CREATE TABLE `sg_article`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   `del_flag` int(1) NULL DEFAULT 0 COMMENT '删除标志（0代表未删除，1代表已删除）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sg_article
 -- ----------------------------
-INSERT INTO `sg_article` VALUES (1, '测试标题', '::: hljs-center\n\n# 测试\n\n:::\n\n中国新时代志愿服务的发展，从“活动”向“项目”的延伸成为新趋势，开展各种志愿服务项目申报、项目比赛、项目创投、项目资助等等，也成为许多地区探索运作的新机制。为此，包括全国志愿服务项目评审、省市志愿服务项目评审以及各部门、各机构、各组织的志愿服务项目评选，都从填写志愿服务《项目书》开始，逐渐进入初评、复评、展示、答辩阶段。《项目书》填写是否体现志愿服务组织的发展特色、项目的实施水平、服务创新发展的活力等将直接影响到项目是否能进入复评、展示。因此，看似简单的志愿服务《项目书》如何能做到“方寸之间、尽显精彩”就非常重要。必须在扎实做好志愿服务的基础上，认真填写《项目书》，争取更多的领导、专家认可，更多的部门、机构支持，以获得更多更好的项目发展机会。我因为近20年来多次参加国家、省、市乃至县区、镇街的志愿项目大赛评审、公益创投评审、文明实践项目评审、社会治理项目评选等，接触许多《项目书》，既看到有非常优秀的项目介绍，也看到一些做得非常实在的项目缺乏很好的介绍。为此，我结合历年来接触和了解的志愿服务组织在《项目书》填写方面的经验教训，概括出“十个要素”的关键，专门撰写文章分析，提供志愿者和志愿组织参考借鉴。当然，更重要是能按规范做实做好服务项目。\n\n## 题目确定要鲜明\n\n　　志愿服务《项目书》的第一个关键就是“题目”，如何将实实在在、长期坚持开展的服务活动，整理和提炼出引起关注、获得支持的题目，确实需要一定的水平。目前，我发现志愿服务“题目”中主要存在三个方面的问题，即简单地“将想法当作题目、将做法当作题目、将口号当作题目”。 如“关爱留守儿童”的题目，就是将想法当作题目，因为全国都在开展关爱留守儿童的服务，志愿者有这种想法的非常多，不能仅仅简单表达就作为题目。如“牵手留守儿童”仅仅是做法，未能成为鲜明突出的好题目。又如“关爱儿童，一起行动”就只是口号，作为题目显得大同小异、印象不深。\n\n', '测试摘要', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/31/948597e164614902ab1662ba8452e106.png', '1', '0', 105, '0', 30, '2023-05-10 23:09:27', '2023-05-18 23:09:56', 1, '2022-01-23 23:20:11', 1, '2023-04-15 08:23:52', 0);
+INSERT INTO `sg_article` VALUES (1, '测试标题', '::: hljs-center\n\n# 测试\n\n:::\n\n中国新时代志愿服务的发展，从“活动”向“项目”的延伸成为新趋势，开展各种志愿服务项目申报、项目比赛、项目创投、项目资助等等，也成为许多地区探索运作的新机制。为此，包括全国志愿服务项目评审、省市志愿服务项目评审以及各部门、各机构、各组织的志愿服务项目评选，都从填写志愿服务《项目书》开始，逐渐进入初评、复评、展示、答辩阶段。《项目书》填写是否体现志愿服务组织的发展特色、项目的实施水平、服务创新发展的活力等将直接影响到项目是否能进入复评、展示。因此，看似简单的志愿服务《项目书》如何能做到“方寸之间、尽显精彩”就非常重要。必须在扎实做好志愿服务的基础上，认真填写《项目书》，争取更多的领导、专家认可，更多的部门、机构支持，以获得更多更好的项目发展机会。我因为近20年来多次参加国家、省、市乃至县区、镇街的志愿项目大赛评审、公益创投评审、文明实践项目评审、社会治理项目评选等，接触许多《项目书》，既看到有非常优秀的项目介绍，也看到一些做得非常实在的项目缺乏很好的介绍。为此，我结合历年来接触和了解的志愿服务组织在《项目书》填写方面的经验教训，概括出“十个要素”的关键，专门撰写文章分析，提供志愿者和志愿组织参考借鉴。当然，更重要是能按规范做实做好服务项目。\n\n## 题目确定要鲜明\n\n　　志愿服务《项目书》的第一个关键就是“题目”，如何将实实在在、长期坚持开展的服务活动，整理和提炼出引起关注、获得支持的题目，确实需要一定的水平。目前，我发现志愿服务“题目”中主要存在三个方面的问题，即简单地“将想法当作题目、将做法当作题目、将口号当作题目”。 如“关爱留守儿童”的题目，就是将想法当作题目，因为全国都在开展关爱留守儿童的服务，志愿者有这种想法的非常多，不能仅仅简单表达就作为题目。如“牵手留守儿童”仅仅是做法，未能成为鲜明突出的好题目。又如“关爱儿童，一起行动”就只是口号，作为题目显得大同小异、印象不深。\n\n', '测试摘要', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/31/948597e164614902ab1662ba8452e106.png', '1', '0', 105, '0', 30, '2023-05-10 23:09:27', '2023-05-18 23:09:56', 1, '2022-01-23 23:20:11', 1, '2023-05-17 15:37:19', 0);
 INSERT INTO `sg_article` VALUES (2, 'weq', 'adadaeqe', 'adad', 2, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/fd2e9460c58a4af3bbeae5d9ed581688.png', '1', '0', 22, '0', 40, '2023-05-11 23:09:29', '2023-05-18 23:09:56', 1, '2022-01-21 14:58:30', 1, '2023-05-10 23:10:35', 1);
 INSERT INTO `sg_article` VALUES (3, 'dad', 'asdasda', 'sadad', 1, 'https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/737a0ed0b8ea430d8700a12e76aa1cd1.png', '1', '0', 33, '0', 20, '2023-05-10 23:09:34', '2023-05-18 23:09:56', 1, '2022-01-18 14:58:34', 1, '2023-05-10 23:10:37', 1);
 INSERT INTO `sg_article` VALUES (5, 'sdad', '![Snipaste_20220115_165812.png](https://sg-blog-oss.oss-cn-beijing.aliyuncs.com/2022/01/15/1d9d283f5d874b468078b183e4b98b71.png)\r\n\r\n## sda \r\n\r\n222\r\n### sdasd newnewnew', NULL, 2, '', '1', '0', 44, '0', 50, '2023-05-10 23:09:38', '2023-05-18 23:09:56', 1, '2022-01-17 14:58:37', 1, '2023-04-15 04:55:09', 0);
@@ -78,31 +78,36 @@ INSERT INTO `sg_article` VALUES (7, 'wewrq', 'wer', 'rewr', 1, '', '1', '1', 0, 
 INSERT INTO `sg_article` VALUES (8, 'test', '', 'test', 1, '', '1', '1', 0, '0', 25, '2023-05-10 23:09:48', '2023-05-18 23:09:56', 1, '2023-04-14 15:31:01', 1, '2023-04-14 15:31:01', 0);
 INSERT INTO `sg_article` VALUES (9, 'test1', '', 'test1', 2, '', '1', '0', 0, '0', 35, '2023-05-10 23:09:50', '2023-05-18 23:09:56', 1, '2023-04-15 03:31:01', 1, '2023-04-15 03:31:01', 0);
 INSERT INTO `sg_article` VALUES (10, 'test2', '### dfsdf \n\nsdfsdf ', 'test2', 2, '', '1', '1', 0, '0', 45, '2023-05-10 23:09:53', '2023-05-18 23:09:56', 1, '2023-04-15 04:10:38', 1, '2023-04-15 04:10:49', 1);
+INSERT INTO `sg_article` VALUES (13, 'tset222', '', '123', 2, '', '1', '0', 0, '0', 234, '2023-05-17 16:00:00', '2023-06-11 16:00:00', 1, '2023-05-17 17:37:07', 1, '2023-05-17 17:37:07', 0);
 
 -- ----------------------------
 -- Table structure for sg_article_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sg_article_user`;
 CREATE TABLE `sg_article_user`  (
-  `article_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '活动id',
-  `user_id` bigint(20) NOT NULL DEFAULT 0 COMMENT '用户id',
-  PRIMARY KEY (`article_id`, `user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章标签关联表' ROW_FORMAT = Dynamic;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `article_id` bigint(20) NOT NULL COMMENT '活动id',
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `status` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0' COMMENT '审核状态（0 审核中，1通过，2不通过）',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '申报时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文章标签关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sg_article_user
 -- ----------------------------
-INSERT INTO `sg_article_user` VALUES (1, 0);
-INSERT INTO `sg_article_user` VALUES (1, 1);
-INSERT INTO `sg_article_user` VALUES (1, 2);
-INSERT INTO `sg_article_user` VALUES (1, 3);
-INSERT INTO `sg_article_user` VALUES (1, 4);
-INSERT INTO `sg_article_user` VALUES (1, 5);
-INSERT INTO `sg_article_user` VALUES (1, 6);
-INSERT INTO `sg_article_user` VALUES (1, 7);
-INSERT INTO `sg_article_user` VALUES (1, 8);
-INSERT INTO `sg_article_user` VALUES (1, 9);
-INSERT INTO `sg_article_user` VALUES (1, 10);
+INSERT INTO `sg_article_user` VALUES (1, 1, 1, '1', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (2, 1, 2, '1', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (3, 1, 3, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (4, 1, 4, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (5, 1, 5, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (6, 1, 6, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (7, 1, 7, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (8, 1, 8, '2', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (9, 1, 9, '0', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (10, 1, 10, '2', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (11, 1, 14787164048663, '1', '2023-05-17 22:12:09');
+INSERT INTO `sg_article_user` VALUES (17, 5, 14787164048663, '0', '2023-05-18 00:50:57');
 
 -- ----------------------------
 -- Table structure for sg_category
@@ -273,7 +278,7 @@ CREATE TABLE `sys_menu`  (
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '备注',
   `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2034 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2035 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -310,6 +315,7 @@ INSERT INTO `sys_menu` VALUES (2026, '友链删除', 2022, 1, '', NULL, 1, 'F', 
 INSERT INTO `sys_menu` VALUES (2027, '友链查询', 2022, 2, '', NULL, 1, 'F', '0', '0', 'content:link:query', '#', NULL, '2022-01-16 08:04:09', NULL, '2022-01-16 08:04:09', '', '0');
 INSERT INTO `sys_menu` VALUES (2028, '导出分类', 2018, 1, '', NULL, 1, 'F', '0', '0', 'content:category:export', '#', NULL, '2022-01-21 07:06:59', NULL, '2022-01-21 07:06:59', '', '0');
 INSERT INTO `sys_menu` VALUES (2033, '志愿活动材料管理', 2017, 5, 'activityData', 'content/activityData/index', 1, 'C', '0', '0', 'content:activityData:index', '404', NULL, '2023-04-13 23:54:22', NULL, '2023-04-13 23:54:24', '', '0');
+INSERT INTO `sys_menu` VALUES (2034, '活动申报管理', 2017, 3, 'declaration', 'content/declaration/index', 1, 'C', '0', '0', 'content:declaration:list', 'peoples', NULL, NULL, NULL, NULL, '', '0');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -599,7 +605,7 @@ INSERT INTO `sys_user` VALUES (9, 'sg9', 'dsadd', '$2a$10$kY4T3SN7i4muBccZppd2OO
 INSERT INTO `sys_user` VALUES (10, 'sg10', 'dsadd', '$2a$10$kY4T3SN7i4muBccZppd2OOkhxMN6yt8tND1sF89hXOaFylhY2T3he', 202102222224, '1', '0', '23412332@qq.com', '19098790742', '0', NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `sys_user` VALUES (11, 'sg11', 'dsadd', '$2a$10$kY4T3SN7i4muBccZppd2OOkhxMN6yt8tND1sF89hXOaFylhY2T3he', 202102222224, '1', '0', '23412332@qq.com', '19098790742', '0', NULL, NULL, NULL, NULL, NULL, 0);
 INSERT INTO `sys_user` VALUES (14787164048662, 'weixin', 'weixin', '$2a$10$y3k3fnMZsBNihsVLXWfI8uMNueVXBI08k.LzWYaKsW8CW7xXy18wC', 202102222227, '0', '0', 'weixin@qq.com', NULL, NULL, NULL, -1, '2022-01-30 17:18:44', -1, '2022-01-30 17:18:44', 0);
-INSERT INTO `sys_user` VALUES (14787164048663, 'test1', 'test1', '$2a$10$UZZFoVkzrgUzOxH70EWzdunq9lti.sDDu/xi2mZ.5TQOSBp6ZZ/eG', NULL, '0', '0', '1205263469@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `sys_user` VALUES (14787164048663, 'test1', 'test1', '$2a$10$UZZFoVkzrgUzOxH70EWzdunq9lti.sDDu/xi2mZ.5TQOSBp6ZZ/eG', 202102210229, '0', '0', '1205263469@qq.com', '18266666666', '0', NULL, NULL, NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for sys_user_role
